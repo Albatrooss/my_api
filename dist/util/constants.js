@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.statusStr = exports.Q_PAID = exports.Q_WORK_DONE = exports.Q_CONTACTED = exports.Q_VIEWED = exports.Q_NEW = void 0;
+exports.Q_NEW = 0;
+exports.Q_VIEWED = 1;
+exports.Q_CONTACTED = 2;
+exports.Q_WORK_DONE = 3;
+exports.Q_PAID = 4;
+exports.statusStr = ['New', 'Viewed', 'Contacted', 'Work Done', 'Paid'];
+//# sourceMappingURL=constants.js.map

@@ -1,0 +1,42 @@
+{
+    "name": "my_api",
+    "version": "1.0.0",
+    "description": "API I am running with various hits for different project I have",
+    "main": "index.js",
+    "scripts": {
+        "watch": "tsc -w",
+        "build": "tsc",
+        "dev": "nodemon dist/index.js",
+        "start": "node dist/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Albatrooss/my_api.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Albatrooss/my_api/issues"
+    },
+    "homepage": "https://github.com/Albatrooss/my_api#readme",
+    "dependencies": {
+        "apollo-server-express": "^2.23.0",
+        "cors": "^2.8.5",
+        "dotenv-safe": "^8.2.0",
+        "express": "^4.17.1",
+        "googleapis": "^71.0.0",
+        "graphql": "^15.5.0",
+        "nodemailer": "^6.5.0",
+        "pg": "^8.6.0",
+        "reflect-metadata": "^0.1.13",
+        "type-graphql": "^1.1.1",
+        "typeorm": "^0.2.32"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.10",
+        "@types/express": "^4.17.11",
+        "@types/nodemailer": "^6.4.1",
+        "typescript": "^4.2.4"
+    }
+}

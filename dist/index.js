@@ -21,13 +21,15 @@ const apollo_server_express_1 = require("apollo-server-express");
 const type_graphql_1 = require("type-graphql");
 const QuoteResolver_1 = require("./resolvers/QuoteResolver");
 const Quote_1 = require("./entities/Quote");
-const { WHITELIST_STR } = process.env;
+const { WHITELIST_STR, POSTGRES_PASSWORD, POSTGRES_USERNAME } = process.env;
 const whitelist = WHITELIST_STR ? WHITELIST_STR.split(',') : [];
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     console.log('url: ', process.env.DATABASE_URL);
     yield typeorm_1.createConnection({
         type: 'postgres',
-        url: process.env.DATABASE_URL,
+        host: 'db',
+        username: POSTGRES_USERNAME,
+        password: POSTGRES_PASSWORD,
         logging: true,
         synchronize: true,
         entities: [Quote_1.Quote],

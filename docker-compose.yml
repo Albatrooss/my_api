@@ -1,0 +1,14 @@
+version: '3'
+services:
+    server:
+        build: ./
+        ports:
+            - 4000:3000
+    db:
+        image: postgres
+        environment:
+            POSTGRES_PASSWORD: password
+        volumes:
+            - /Volumes/OKOPI/docker/data/ohoh/postgres:/var/lib/postgresql/data
+        ports:
+            - 5432:5432

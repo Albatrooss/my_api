@@ -8,14 +8,16 @@ import { buildSchema } from 'type-graphql';
 import { QuoteResolver } from './resolvers/QuoteResolver';
 import { Quote } from './entities/Quote';
 
-const { WHITELIST_STR } = process.env;
+const { WHITELIST_STR, POSTGRES_PASSWORD, POSTGRES_USERNAME } = process.env;
 const whitelist = WHITELIST_STR ? WHITELIST_STR.split(',') : [];
 
 const main = async () => {
     console.log('url: ', process.env.DATABASE_URL);
     await createConnection({
         type: 'postgres',
-        url: process.env.DATABASE_URL,
+        host: 'db',
+        username: POSTGRES_USERNAME,
+        password: POSTGRES_PASSWORD,
         logging: true,
         synchronize: true,
         entities: [Quote],

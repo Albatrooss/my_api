@@ -1,14 +1,27 @@
 version: '3'
 services:
     server:
-        build: ./
+        build: .
         ports:
             - 3000:3000
+        environment:
+            PORT: 3000
+            GOOGLE_CLIENT_ID: 727188826318-3sad771kea7affpllsecspjh1rf1r0js.apps.googleusercontent.com
+            GOOGLE_CLIENT_SECRET: HmwtVS9Z4VBnIXD6l45R6a6L
+            GOOGLE_REDIRECT_URI: https://developers.google.com/oauthplayground
+            GOOGLE_REFRESH_TOKEN: 1//04OSrBQmsEVs4CgYIARAAGAQSNwF-L9Ir6FKAmbX_vXp4aUpl-OFPrrV-3O11jUlUdgi2BtR_7BSt-CVCV8Ji5DAcqy81IND420g
+            FROM_EMAIL: okopidev@gmail.com
+            TO_EMAIL: robillardtim@gmail.com
+            POSTGRES_USERNAME: postgres
+            POSTGRES_PASSWORD: password
+            WHITELIST_STR: http://localhost:3000,https://waterloohandymanservices.ca,https://www.waterloohandymanservices.ca
+            DATABASE_URL: 123
+            SESSION_SECRET: id97uoje10=dfmi21urnf
     db:
         image: postgres
         environment:
             POSTGRES_PASSWORD: password
         volumes:
-            - /Volumes/OKOPI/docker/data/ohoh/postgres:/var/lib/postgresql/data
+            - /Volumes/okopi/db/postgresql/data:/var/lib/postgresql/data
         ports:
             - 5432:5432

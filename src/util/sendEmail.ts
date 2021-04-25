@@ -28,7 +28,7 @@ export interface MailOptionsLessFromTo {
 }
 
 export const sendEmail = async (mailData: MailOptionsLessFromTo) => {
-    return true;
+    // return true;
     try {
         const accessToken = await oAuth2Client.getAccessToken();
 

@@ -29,7 +29,7 @@ export class QuoteInput {
 }
 
 @ObjectType()
-class FieldError {
+export class FieldError {
     @Field()
     field: string;
 
@@ -55,12 +55,32 @@ export class QuoteResolver {
 
     @Query(() => [Quote])
     quotes(): Promise<Quote[]> {
-        return Quote.find();
+        return Quote.find({ order: { id: 'DESC' } });
     }
 
     @Mutation(() => QuoteResponse)
     async createQuote(@Arg('input') input: QuoteInput): Promise<QuoteResponse> {
-        // if ()
+        if (!input.name) {
+            return {
+                errors: [
+                    {
+                        field: 'name',
+                        message: 'Name required',
+                    },
+                ],
+            };
+        }
+
+        if (!input.phoneNumber && !input.email) {
+            return {
+                errors: [
+                    {
+                        field: 'phoneNumber',
+                        message: 'We need a way to reach you!',
+                    },
+                ],
+            };
+        }
         const quote = Quote.create({ ...input });
         const emailSent = await sendEmail(createEmailData(input));
         console.log('email ?', emailSent);

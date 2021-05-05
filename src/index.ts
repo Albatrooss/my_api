@@ -11,6 +11,7 @@ import { Quote } from './entities/Quote';
 import { User } from './entities/User';
 import { QuoteResolver } from './resolvers/QuoteResolver';
 import { UserResolver } from './resolvers/User';
+import connectPgSimple from 'connect-pg-simple';
 
 const { WHITELIST_STR, POSTGRES_PASSWORD, POSTGRES_USERNAME } = process.env;
 const whitelist = WHITELIST_STR ? WHITELIST_STR.split(',') : [];
@@ -21,7 +22,7 @@ const main = async () => {
         try {
             await createConnection({
                 type: 'postgres',
-                host: 'db',
+                host: 'localhost',
                 database: 'handyman',
                 username: POSTGRES_USERNAME,
                 password: POSTGRES_PASSWORD,
@@ -38,8 +39,10 @@ const main = async () => {
         }
     }
 
+    const pgSession = connectPgSimple(session);
+
     const app = express();
-    // app.set('proxy', 1);
+    app.set('proxy', 1);
     app.use(
         cors({
             origin: function (origin, cb) {
@@ -54,16 +57,26 @@ const main = async () => {
     app.use(
         session({
             name: COOKIE_NAME,
+            store: new pgSession({
+                conObject: {
+                    host: 'localhost',
+                    port: 5432,
+                    user: POSTGRES_USERNAME,
+                    password: POSTGRES_PASSWORD,
+                    database: 'handyman',
+                },
+            }),
             cookie: {
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 10, // 10 years
                 httpOnly: true,
                 secure: __prod__,
                 sameSite: 'lax',
-                domain: __prod__ ? 'ohohoh.ca' : undefined,
+                domain: __prod__ ? '.ohohoh.ca' : undefined,
             },
             saveUninitialized: false,
             secret: process.env.SESSION_SECRET as string,
             resave: false,
+            proxy: true,
         }),
     );
 

@@ -80,6 +80,22 @@ const main = async () => {
         }),
     );
 
+    app.get('/', (_, res) => {
+        res.send(' OHOHOHOHOHOHOH ');
+    });
+
+    app.get('/privacy', (_, res) => {
+        res.send(
+            'This is a private API made by and for Tim Robilard. Access at your own risk',
+        );
+    });
+
+    app.get('/terms', (_, res) => {
+        res.send(
+            'This is a private API made by and for Tim Robilard. Access at your own risk',
+        );
+    });
+
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
             resolvers: [QuoteResolver, UserResolver],

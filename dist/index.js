@@ -34,7 +34,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         try {
             yield typeorm_1.createConnection({
                 type: 'postgres',
-                host: constants_1.__prod__ ? 'db' : 'localhost',
+                host: 'localhost',
                 database: 'handyman',
                 username: POSTGRES_USERNAME,
                 password: POSTGRES_PASSWORD,
@@ -66,7 +66,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         name: constants_1.COOKIE_NAME,
         store: new pgSession({
             conObject: {
-                host: constants_1.__prod__ ? 'db' : 'localhost',
+                host: 'localhost',
                 port: 5432,
                 user: POSTGRES_USERNAME,
                 password: POSTGRES_PASSWORD,
@@ -85,6 +85,15 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         resave: false,
         proxy: true,
     }));
+    app.get('/', (_, res) => {
+        res.send(' OHOHOHOHOHOHOH ');
+    });
+    app.get('/privacy', (_, res) => {
+        res.send('This is a private API made by and for Tim Robilard. Access at your own risk');
+    });
+    app.get('/terms', (_, res) => {
+        res.send('This is a private API made by and for Tim Robilard. Access at your own risk');
+    });
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
             resolvers: [QuoteResolver_1.QuoteResolver, User_2.UserResolver],

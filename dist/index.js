@@ -26,6 +26,8 @@ const User_1 = require("./entities/User");
 const QuoteResolver_1 = require("./resolvers/QuoteResolver");
 const User_2 = require("./resolvers/User");
 const connect_pg_simple_1 = __importDefault(require("connect-pg-simple"));
+const Wish_1 = require("./entities/Wish");
+const WishResolver_1 = require("./resolvers/WishResolver");
 const { WHITELIST_STR, POSTGRES_PASSWORD, POSTGRES_USERNAME } = process.env;
 const whitelist = WHITELIST_STR ? WHITELIST_STR.split(',') : [];
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -40,7 +42,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 password: POSTGRES_PASSWORD,
                 logging: true,
                 synchronize: true,
-                entities: [Quote_1.Quote, User_1.User],
+                entities: [Quote_1.Quote, User_1.User, Wish_1.Wish],
             });
             break;
         }
@@ -96,7 +98,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
     });
     const apolloServer = new apollo_server_express_1.ApolloServer({
         schema: yield type_graphql_1.buildSchema({
-            resolvers: [QuoteResolver_1.QuoteResolver, User_2.UserResolver],
+            resolvers: [QuoteResolver_1.QuoteResolver, User_2.UserResolver, WishResolver_1.WishResolver],
             validate: false,
         }),
         context: ({ req, res }) => ({

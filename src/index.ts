@@ -12,6 +12,8 @@ import { User } from './entities/User';
 import { QuoteResolver } from './resolvers/QuoteResolver';
 import { UserResolver } from './resolvers/User';
 import connectPgSimple from 'connect-pg-simple';
+import { Wish } from './entities/Wish';
+import { WishResolver } from './resolvers/WishResolver';
 
 const { WHITELIST_STR, POSTGRES_PASSWORD, POSTGRES_USERNAME } = process.env;
 const whitelist = WHITELIST_STR ? WHITELIST_STR.split(',') : [];
@@ -28,7 +30,7 @@ const main = async () => {
                 password: POSTGRES_PASSWORD,
                 logging: true,
                 synchronize: true,
-                entities: [Quote, User],
+                entities: [Quote, User, Wish],
             });
             break;
         } catch (error) {
@@ -98,7 +100,7 @@ const main = async () => {
 
     const apolloServer = new ApolloServer({
         schema: await buildSchema({
-            resolvers: [QuoteResolver, UserResolver],
+            resolvers: [QuoteResolver, UserResolver, WishResolver],
             validate: false,
         }),
         context: ({ req, res }) => ({

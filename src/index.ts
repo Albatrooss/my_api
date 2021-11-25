@@ -48,7 +48,7 @@ const main = async () => {
     const RedisStore = connectRedis(session);
     const redis = new Redis({
         host: 'localhost',
-        password: 'password',
+        password: process.env.REDIS_PWD,
     });
 
     app.set('proxy', 1);

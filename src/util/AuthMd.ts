@@ -6,6 +6,7 @@ export const AuthMd: (
 ) => MiddlewareFn<MyContext> =
   service =>
   ({ context: { req } }, next) => {
+    console.log('host', req.hostname)
     if (req.hostname !== process.env[`SERVICE_${service}`]) throw new Error('access denied')
     return next();
   };

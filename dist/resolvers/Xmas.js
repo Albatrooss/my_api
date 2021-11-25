@@ -47,13 +47,13 @@ XmasResponse = __decorate([
     type_graphql_1.ObjectType()
 ], XmasResponse);
 let XmasResolver = class XmasResolver {
-    me({ req }) {
+    meXmas({ req }) {
         const userId = req.session.xmasId;
         if (!userId)
             return new Promise(res => res(undefined));
         return Xmas_1.Xmas.findOne(userId);
     }
-    create(name, password) {
+    createXmas(name, password) {
         return __awaiter(this, void 0, void 0, function* () {
             name = name.toLowerCase();
             if (!Object.keys(constants_1.MEMBERS).includes(name))
@@ -103,7 +103,7 @@ let XmasResolver = class XmasResolver {
             };
         });
     }
-    login(name, password, { req }) {
+    loginXmas(name, password, { req }) {
         return __awaiter(this, void 0, void 0, function* () {
             const xmas = yield Xmas_1.Xmas.findOne({ where: { name } });
             if (!xmas) {
@@ -133,7 +133,7 @@ let XmasResolver = class XmasResolver {
             };
         });
     }
-    logout({ req, res }) {
+    logoutXmas({ req, res }) {
         return new Promise((resolve) => req.session.destroy((err) => {
             res.clearCookie(constants_1.COOKIE_NAME);
             if (err) {
@@ -166,7 +166,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], XmasResolver.prototype, "me", null);
+], XmasResolver.prototype, "meXmas", null);
 __decorate([
     type_graphql_1.UseMiddleware(AuthMd_1.AuthMd('XMAS')),
     type_graphql_1.Mutation(() => XmasResponse),
@@ -174,7 +174,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], XmasResolver.prototype, "create", null);
+], XmasResolver.prototype, "createXmas", null);
 __decorate([
     type_graphql_1.UseMiddleware(AuthMd_1.AuthMd('XMAS')),
     type_graphql_1.Mutation(() => XmasResponse),
@@ -184,14 +184,14 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String, Object]),
     __metadata("design:returntype", Promise)
-], XmasResolver.prototype, "login", null);
+], XmasResolver.prototype, "loginXmas", null);
 __decorate([
     type_graphql_1.Mutation(() => Boolean),
     __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], XmasResolver.prototype, "logout", null);
+], XmasResolver.prototype, "logoutXmas", null);
 __decorate([
     type_graphql_1.UseMiddleware(AuthMd_1.AuthMd('XMAS')),
     type_graphql_1.Mutation(() => Boolean),

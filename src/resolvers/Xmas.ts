@@ -33,7 +33,7 @@ export class XmasResolver {
     
     @UseMiddleware(AuthMd('XMAS'))
     @Query(() => Xmas, { nullable: true })
-    me(@Ctx() { req }: MyContext): Promise<Xmas | undefined> {
+    meXmas(@Ctx() { req }: MyContext): Promise<Xmas | undefined> {
         const userId = req.session.xmasId;
         if (!userId) return new Promise(res => res(undefined));
         return Xmas.findOne(userId);
@@ -41,7 +41,7 @@ export class XmasResolver {
 
     @UseMiddleware(AuthMd('XMAS'))
     @Mutation(() => XmasResponse)
-    async create(@Arg('name') name: string, @Arg('password') password: string): Promise<XmasResponse> {
+    async createXmas(@Arg('name') name: string, @Arg('password') password: string): Promise<XmasResponse> {
       name = name.toLowerCase();
       if (!Object.keys(MEMBERS).includes(name)) return {
         errors: [{
@@ -90,7 +90,7 @@ export class XmasResolver {
 
     @UseMiddleware(AuthMd('XMAS'))
     @Mutation(() => XmasResponse)
-    async login(
+    async loginXmas(
         @Arg('name') name: string,
         @Arg('password') password: string,
         @Ctx() { req }: MyContext,
@@ -124,7 +124,7 @@ export class XmasResolver {
     }
 
     @Mutation(() => Boolean)
-    logout(@Ctx() { req, res }: MyContext) {
+    logoutXmas(@Ctx() { req, res }: MyContext) {
       return new Promise((resolve) =>
         req.session.destroy((err) => {
           res.clearCookie(COOKIE_NAME);

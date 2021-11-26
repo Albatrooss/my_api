@@ -117,7 +117,9 @@ export class XmasResolver {
                 ],
             };
         }
+        console.log(xmas)
         req.session.xmasId = xmas.id;
+        console.log('saved')
         return {
             user: xmas,
         };

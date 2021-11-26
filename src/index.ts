@@ -30,8 +30,8 @@ const main = async () => {
                 port: Number(POSTGRES_PORT),
                 username: POSTGRES_USERNAME,
                 password: POSTGRES_PASSWORD,
-                logging: true,
-                synchronize: true,
+                // logging: true,
+                // synchronize: true,
                 entities: [Quote, User, Xmas],
             });
             break;
@@ -51,7 +51,7 @@ const main = async () => {
         password: process.env.REDIS_PWD,
     });
 
-    app.set('proxy', 1);
+    app.set('trust proxy', 1);
     app.use(
         cors({
             origin: function (origin, cb) {
@@ -75,12 +75,12 @@ const main = async () => {
                 httpOnly: true,
                 secure: __prod__,
                 sameSite: 'lax',
-                domain: __prod__ ? '.ohohoh.ca' : undefined,
+                domain: undefined,
+                // domain: __prod__ ? '.ohohoh.ca' : undefined,
             },
             saveUninitialized: false,
             secret: process.env.SESSION_SECRET as string,
             resave: false,
-            proxy: true,
         }),
     );
 

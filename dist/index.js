@@ -42,8 +42,6 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
                 port: Number(POSTGRES_PORT),
                 username: POSTGRES_USERNAME,
                 password: POSTGRES_PASSWORD,
-                logging: true,
-                synchronize: true,
                 entities: [Quote_1.Quote, User_1.User, Xmas_1.Xmas],
             });
             break;
@@ -61,7 +59,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         host: 'localhost',
         password: process.env.REDIS_PWD,
     });
-    app.set('proxy', 1);
+    app.set('trust proxy', 1);
     app.use(cors_1.default({
         origin: function (origin, cb) {
             if (!origin || whitelist.indexOf(origin) !== -1)
@@ -81,12 +79,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
             httpOnly: true,
             secure: constants_1.__prod__,
             sameSite: 'lax',
-            domain: constants_1.__prod__ ? '.ohohoh.ca' : undefined,
         },
         saveUninitialized: false,
         secret: process.env.SESSION_SECRET,
         resave: false,
-        proxy: true,
     }));
     app.get('/', (_, res) => {
         res.send(' OHOHOHOHOHOHOH ');
